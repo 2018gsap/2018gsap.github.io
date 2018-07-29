@@ -12,8 +12,8 @@
     @include heading-font;
   }
   .navbar-brand {
-    color: $primary;
-    @include script-font;
+    color: #FFFFFF;
+    font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
     &.active,
     &:active,
     &:focus,
