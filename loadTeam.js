@@ -1,17 +1,19 @@
 
 function getHtml (person) {
-  let noImageArray = [7, 10, 15, 21, 27, 41, 42]
-  let majorField = person.MajorField ? person.MajorField.replace(/#/gi, ',') : ''
-  return `
-  <div class="col-sm-4">
-    <div class="team-member">
-      <img class="mx-auto rounded-circle" src="img/team/${noImageArray.indexOf(person.index) > -1 ? 'noimage.jpg' : `${person.index}.${person.index === 16 ? 'png' : 'jpg'}`}" alt="">
-      <h4>${person.EngName}</h4>
-      <p title='${majorField}' style='text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: #a256d7!important;' class="text-muted">${majorField}</p>
-      <p style='word-break: break-all; text-align: left;'>${person.Introduction ? person.Introduction.replace(/#/gi, ',') : ''}</p>
-    </div>
-  </div>
-  `
+  var noImageArray = [7, 15, 21, 41, 42]
+  var majorField = person.MajorField ? person.MajorField.replace(/#/gi, ',') : ''
+  return (
+  '<div class="col-sm-4">' +
+    '<div class="team-member">' +
+      '<img class="mx-auto rounded-circle" src="img/team/' + (
+        noImageArray.indexOf(person.index) > -1 ? 'noimage.jpg' : person.index + '.' + (person.index === 16 ? 'png' : 'jpg')
+      ) + '" alt="">' +
+      '<h4>' + person.EngName + '</h4>' +
+      '<p title="' + majorField + '" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: #a256d7!important;" class="text-muted">' + majorField + '</p>' +
+      '<p style="word-break: break-all; text-align: left;">' + (person.Introduction ? person.Introduction.replace(/#/gi, ',') : '') + '</p>' +
+    '</div>' +
+  '</div>'
+  )
 }
 
 function shuffle (array) {
@@ -39,22 +41,21 @@ $(function () {
     url: 'team.csv',
     dataType: 'text'
   }).done(function (data) {
-    console.log('load csv', data)
     var allRows = data.split(/\r?\n|\r/)
     var keys = allRows[0].split(',')
     var team = []
-    for (let i = 1; i < allRows.length; i++) {
+    for (var i = 1; i < allRows.length; i++) {
       var person = {index: i}
       var values = allRows[i].split(',')
-      keys.map((key, i) => {
+      keys.map(function (key, i) {
         person[key] = values[i]
       })
       team.push(person)
     }
     team = shuffle(team)
 
-    for (let i = 0; i < team.length / 3 + (team.length % 3 > 0 ? 1 : 0); i++) {
-      let html = `<div class='row'>`
+    for (var i = 0; i < team.length / 3 + (team.length % 3 > 0 ? 1 : 0); i++) {
+      var html = '<div class="row">'
       if (team[i * 3]) {
         html += getHtml(team[i * 3])
       }
