@@ -1,6 +1,6 @@
 
 function getHtml (person) {
-  var noImageArray = [7, 15, 21, 41, 42]
+  var noImageArray = [41, 42]
   var majorField = person.MajorField ? person.MajorField.replace(/#/gi, ',') : ''
   return (
   '<div class="col-sm-4">' +
