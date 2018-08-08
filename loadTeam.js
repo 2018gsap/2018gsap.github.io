@@ -41,7 +41,7 @@ $(function () {
     url: 'team.csv',
     dataType: 'text'
   }).done(function (data) {
-    var allRows = data.spl(/\r?\n|\r/)
+    var allRows = data.split(/\r?\n|\r/)
     var keys = allRows[0].split(',')
     var team = []
     for (var i = 1; i < allRows.length; i++) {
